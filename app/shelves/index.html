@@ -1,0 +1,24 @@
+﻿<h1>Shelves</h1>
+
+<div ng-if="!vm.shelves || !vm.shelves.length" class="animate-if">
+    You have no shelves yet. <a ui-sref="shelves/create">Create</a> your first one!
+</div>
+
+<div ng-if="vm.shelves.length" class="animate-if">
+    <div ng-repeat="shelve in vm.shelves">
+        <h2>{{shelve.name}} <small><a ng-click="vm.delete(shelve._id)">Delete</a></small></h2>
+        <div class="row">
+          <div class="col-sm-3 col-md-3" ng-repeat="book in shelve.books">
+            <div class="thumbnail">
+              <img class="thumbnail" src="http://covers.openlibrary.org/b/isbn/{{book.isbn13}}-M.jpg" />
+              <div class="caption">
+                <h3>{{book.title}}</h3>
+                <p>
+                    <a class="btn btn-primary" role="button" ng-click="vm.removeBook(shelve._id, book.isbn13)">Remove</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

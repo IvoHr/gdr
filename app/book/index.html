@@ -1,0 +1,58 @@
+﻿<div class="page-header">
+    <div class="row">
+      <div class="col-md-4 img-thumbnail">
+          <img style="width: 100%;" src="http://covers.openlibrary.org/b/isbn/{{vm.book.isbn13}}-L.jpg" />
+      </div>
+      <div class="col-md-8">
+          <h1>{{vm.book.title}}</h1>
+          <h6>by <b ng-repeat="author in vm.book.author_data">{{author.name}}{{$last ? '' : ', '}}</b></h6>
+          <p>{{vm.book.summary}}</p>
+          <hr/>
+          <p><b>ISBN</b>: {{vm.book.isbn13}}</p>
+          <p><b>Publisher</b>: {{vm.book.publisher_text}}</p>
+      </div>
+    </div>
+</div>
+
+
+<div class="form-container">
+    <div ng-if="vm.searchResult.result_count" class="animate-if">
+        <h2>Search results</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="book in vm.searchResult.data">
+                    <td><img class="thumbnail" src="http://covers.openlibrary.org/b/isbn/{{book.isbn13}}-S.jpg" /></td>
+                    <td><a href="#" ui-shref='book({book: book.isbn13})'>{{book.title}}</a></td>
+                    <td>
+                        <span ng-repeat="author in book.author_data">{{author.name}}{{$last ? '' : ', '}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li ng-class="{'disabled': vm.searchResult.pages.prev.disabled}">
+              <a href="#" aria-label="Previous" ng-click="vm.searchBook(vm.book.q, vm.searchResult.pages.prev.number)">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li ng-class="{'active': page.active}" ng-repeat="page in vm.searchResult.pages.list">
+                <a href="#" ng-click="vm.searchBook(vm.book.q, page.number)">{{page.number}}</a>
+            </li>
+            <li ng-class="{'disabled': vm.searchResult.pages.next.disabled}">
+              <a href="#" aria-label="Next" ng-click="vm.searchBook(vm.book.q, vm.searchResult.pages.next.number)">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+    </div>
+</div>

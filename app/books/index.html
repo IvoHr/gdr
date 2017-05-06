@@ -1,0 +1,73 @@
+﻿<h1>Books</h1>
+<div class="form-container">
+    <form method="get">
+        <div class="form-group">
+            <label for="q">Search for a book</label>
+            <input type="text" id="q" class="form-control" ng-model="vm.book.q" required />
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" ng-click="vm.searchBook()">Search <span ng-class="{hidden: !vm.searching}" class="fa fa-circle-o-notch fa-spin" style="font-size: 14px"></span></button>
+        </div>
+    </form>
+
+    <div ng-if="vm.searchResult && !vm.searchResult.result_count" class="animate-if">
+        Nothing found
+    </div>
+
+    <div ng-if="vm.searchResult.result_count" class="animate-if">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Cover</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="book in vm.searchResult.data">
+                    <td class="col-md-1">
+                        <a ui-sref='book({book: book.isbn13})'>
+                            <img class="thumbnail" src="http://covers.openlibrary.org/b/isbn/{{book.isbn13}}-S.jpg" />
+                        </a>
+                    </td>
+                    <td><a ui-sref='book({book: book.isbn13})'>{{book.title}}</a></td>
+                    <td>
+                        <span ng-repeat="author in book.author_data">{{author.name}}{{$last ? '' : ', '}}</span>
+                    </td>
+                    <td class="col-md-1">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu{{$index}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Add to shelve
+                            <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu{{$index}}">
+                                <li ng-repeat="shelve in vm.shelves">
+                                    <a ng-click="vm.addToShelve(shelve._id, book)">{{shelve.name}}</a>
+                                </li>
+                            </ul>
+                        </div>  
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li ng-class="{'disabled': vm.searchResult.pages.prev.disabled}">
+              <a href="#" aria-label="Previous" ng-click="vm.searchBook(vm.book.q, vm.searchResult.pages.prev.number)">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li ng-class="{'active': page.active}" ng-repeat="page in vm.searchResult.pages.list">
+                <a href="#" ng-click="vm.searchBook(vm.book.q, page.number)">{{page.number}}</a>
+            </li>
+            <li ng-class="{'disabled': vm.searchResult.pages.next.disabled}">
+              <a href="#" aria-label="Next" ng-click="vm.searchBook(vm.book.q, vm.searchResult.pages.next.number)">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+    </div>
+</div>

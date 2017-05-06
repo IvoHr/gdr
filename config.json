@@ -1,0 +1,6 @@
+﻿{
+    "connectionString": "mongodb://localhost:27017/thegoodreads",
+    "apiUrl": "http://localhost:3000/api",
+    "secret": "ASDIOUHJ08dasuouh120ASDU8ioh12bnejasBF)+*U 12hionads",
+    "isbndbKey": "JM6LFWKN"
+}

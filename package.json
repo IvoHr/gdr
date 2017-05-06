@@ -1,0 +1,26 @@
+{
+  "name": "the-goodreads",
+  "version": "1.0.0",
+  "description": "Final project IT Talents",
+  "repository": {
+    "type": "git"
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "bcryptjs": "^2.1.0",
+    "body-parser": "^1.13.2",
+    "ejs": "^2.3.3",
+    "express": "^4.13.0",
+    "express-jwt": "^3.0.1",
+    "express-session": "^1.11.3",
+    "jsonwebtoken": "^5.0.2",
+    "lodash": "^3.10.0",
+    "mongodb": "^2.1.16",
+    "mongoskin": "^2.1.0",
+    "q": "^1.4.1",
+    "rootpath": "^0.1.2",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
+  },
+  "license": "MIT"
+}
